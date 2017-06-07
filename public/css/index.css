@@ -3,7 +3,7 @@ body{
   background-color: #0A0708;
 }
 
-.modal-content, .list-group-item, a.list-group-item{
+.container .jumbotron, .thumbnail, .caption, .modal-content, .list-group-item, a.list-group-item{
   border: none;
   background-color : #222222;
   color : white;
@@ -39,4 +39,16 @@ a.list-group-item:hover .logo{
   height: 28px;
   display: inline;
   padding-right : 13px;
+}
+
+.form {
+  padding: 10px 25px;
+  border-radius: 5px;
+  border: none;
+  background-color : #222222;
+  color : white;
+}
+
+.form-control {
+  margin-top: 10px;
 }

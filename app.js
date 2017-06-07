@@ -11,20 +11,15 @@ app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 
 
+var photoDB    = require(__dirname + "/models/photos.js");
 
-var test = [{
-  src: "https://scontent.xx.fbcdn.net/v/t1.0-9/18767867_10208837246920374_5270384912038845893_n.jpg?oh=f553c8919a045fdc1c3ba8c0f795b52e&oe=599C51F6",
-  title: "U N D E R",
-  id:1
-  },{
-  src:"https://c1.staticflickr.com/5/4223/34810498871_ec2c669992_k.jpg",
-  id:2,
-  title: "Tension"
-  },{
-  src:"https://scontent.xx.fbcdn.net/v/t1.0-9/18010976_10208519727822595_8487734034774834229_n.jpg?oh=a021b9a23f1b4151f33764b8229170ac&oe=59A2119B",
-  id:3,
-  title: "Railway"
-}];
+//CREATE PICS TO POPULATE DB
+// photoDB.create({
+//   src: "https://scontent.xx.fbcdn.net/v/t1.0-9/18010976_10208519727822595_8487734034774834229_n.jpg?oh=a021b9a23f1b4151f33764b8229170ac&oe=59A2119B",
+//   title: "railway night",
+//   description: "eefe"
+// });
+//CREATE PICS TO POPULATE DB
 
 //GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
 var gpotte;
@@ -38,7 +33,9 @@ app.get('/', (req, res) => {
 
 // render Each categories
 app.get('/home', (req, res) => {
-    res.render("home", {title: 'Home', images: test, gpotte: gpotte});
+  photoDB.find({}, (err, images)=>{
+    res.render("home", {title: 'Home', images: images, gpotte: gpotte});
+  });
 });
 
 //render all 365 photos in pagination (15 by 15)
@@ -49,6 +46,12 @@ app.get('/365', (req, res)=>{
 //render the portfolio
 app.get('/portfolio', (req, res)=>{
     res.render("portfolio/portfolio", {title: 'portfolio', gpotte: gpotte});
+});
+
+//render form to upload photos and form to create tags
+//need the authentification and ajax for the tag form
+app.get('/upload', (req, res)=>{
+  res.render("upload/upload", {title: 'upload', gpotte: gpotte});
 });
 
 app.listen(port, ()=>{

@@ -9,7 +9,7 @@
   <!-- FOR EACH IMAGES CREATE A SQUARE -->
   <div class=row>
   <% images.forEach((image)=>{ %>
-    <div class="col-md-4 col-s-6"  data-toggle="modal" data-target="#myModal<%=image.id%>">
+    <div class="col-md-4 col-s-6"  data-toggle="modal" data-target="#myModal<%=image._id%>">
       <a href="#" class="thumbnail">
         <div class="image">
           <img class="img-rounded img img-responsive full-width" src=<%=image.src%>>
@@ -34,6 +34,11 @@
           <img class="img-rounded img img-responsive full-width" src=<%=image.src%>>
         </div>
         <div class="modal-footer">
+          <% if(image.description){%>
+            <p><%=image.description%></p>
+          <%} for(var i=0; i < image.tags.length; i++){%>
+            <p>#<%= image.tags[i] %> </p>
+            <%}%>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">share</button>
         </div>
@@ -44,5 +49,5 @@
   <% }); %>
 <!-- FOR EACH IMAGES CREATE A SQUARE -->
 </div>
-<link rel="stylesheet" type="text/css" href="css/home.css" /
+<link rel="stylesheet" type="text/css" href="css/home.css" />
 <% include partials/footer %>
