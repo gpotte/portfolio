@@ -2,3 +2,25 @@ body{
   padding-top: 70px;
   background-color: #0A0708;
 }
+
+.modal-content, .list-group-item, a.list-group-item, button.list-group-item{
+  border: none;
+  background-color : #222222;
+  color : white;
+}
+
+.modal-content li{
+  style: none;
+}
+
+.modal-header{
+  border-bottom: 1px solid #747474;
+}
+
+.modal-header .close {
+  color: white;
+}
+
+.modal-footer {
+  border-top: 1px solid #747474;
+}

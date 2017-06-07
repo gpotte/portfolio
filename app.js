@@ -23,11 +23,12 @@ var test = [{
   id:3,
   title: "Railway"
   }];
+
 app.get('/', (req, res) => {
   res.redirect('/home');
 });
 
-// render 10 favorites photos
+// render Each categories
 app.get('/home', (req, res) => {
   res.render("home", {title: 'Home', images: test});
 });
