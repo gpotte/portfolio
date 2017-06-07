@@ -1,0 +1,42 @@
+<% include partials/header %>
+  <div class="jumbotron">
+    <h1><i class="fa fa-camera-retro" aria-hidden="true"></i> Gilles Potte</h1>
+    <p>Short Description</p>
+    <p><a class="btn btn-primary btn-lg" href="/contact" role="button">Contact Me</a></p>
+  </div>
+  <div class=row>
+  <% images.forEach((image)=>{ %>
+    <div class="col-md-4 col-s-6"  data-toggle="modal" data-target="#myModal<%=image.id%>">
+      <a href="#" class="thumbnail">
+        <div class="image">
+          <img class="img-rounded img img-responsive full-width" src=<%=image.src%>>
+        </div>
+      </a>
+        <div class="caption">
+          <div class="container">
+            <h4><%=image.title%></h4>
+          </div>
+        </div>
+    </div>
+    <!-- Modal -->
+<div class="modal fade" id="myModal<%=image.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%=image.title%></h4>
+      </div>
+      <div class="modal-body">
+        <img class="img-rounded img img-responsive full-width" src=<%=image.src%>>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">share</button>
+      </div>
+    </div>
+  </div>
+</div>
+  <% }); %>
+</div>
+<link rel="stylesheet" type="text/css" href="css/home.css" /
+<% include partials/footer %>
