@@ -3,7 +3,7 @@ body{
   background-color: #0A0708;
 }
 
-.modal-content, .list-group-item, a.list-group-item, button.list-group-item{
+.modal-content, .list-group-item, a.list-group-item{
   border: none;
   background-color : #222222;
   color : white;
@@ -23,4 +23,20 @@ body{
 
 .modal-footer {
   border-top: 1px solid #747474;
+}
+
+.logo {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+
+a.list-group-item:hover .logo{
+  -webkit-filter: invert(0%);
+  filter: invert(0%);
+}
+
+.instagram, .mail{
+  height: 28px;
+  display: inline;
+  padding-right : 13px;
 }

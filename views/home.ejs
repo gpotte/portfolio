@@ -1,11 +1,12 @@
 <% include partials/header %>
   <div class="jumbotron">
     <h1><i class="fa fa-camera-retro" aria-hidden="true"></i> Gilles Potte</h1>
-    <p>Short Description</p>
+    <p><%= gpotte.bio %></p>
     <p>
       <a class="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#contact">Contact Me</a>
     </p>
   </div>
+  <!-- FOR EACH IMAGES CREATE A SQUARE -->
   <div class=row>
   <% images.forEach((image)=>{ %>
     <div class="col-md-4 col-s-6"  data-toggle="modal" data-target="#myModal<%=image.id%>">
@@ -21,7 +22,7 @@
         </div>
     </div>
 
-<!-- Modal Overlay-->
+<!-- MODAL OVERLAY-->
   <div class="modal fade" id="myModal<%=image.id%>" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -39,9 +40,9 @@
       </div>
     </div>
   </div>
-<!-- Modal Overlay-->
-
+<!-- MODAL OVERLAY-->
   <% }); %>
+<!-- FOR EACH IMAGES CREATE A SQUARE -->
 </div>
 <link rel="stylesheet" type="text/css" href="css/home.css" /
 <% include partials/footer %>
