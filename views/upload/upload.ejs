@@ -2,12 +2,14 @@
 
   <div class="form">
     <h2>Upload new photo</h2>
-    <form>
+    <form action="/upload/photo" method="post">
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Title" required>
-        <input type="text" class="form-control" placeholder="Source URL" required>
-        <input type="text" id="margin-bottom" class="form-control" placeholder="Description (optionnal)">
-          <input type="text" placeholder="Tags" data-role="tagsinput" required>
+        <input type="text" name="title" class="form-control" placeholder="Title" required>
+        <input type="text" name="src" class="form-control" placeholder="Source URL" required>
+        <input type="text" name="description" class="form-control" placeholder="Description (optionnal)">
+        <select multiple name="tags" placeholder="Tags" data-role="tagsinput" required>
+        <input type="submit" class="btn btn-default btn-primary">
+      </div>
     </form>
   </div>
   <link rel=stylesheet type="text/css" href="css/upload.css">

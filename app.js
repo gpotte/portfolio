@@ -13,20 +13,20 @@ app.set("view engine", "ejs");
 
 
 var photoDB    = require(__dirname + "/models/photos.js");
-//CREATE TAGS TO POPULATE DB
 var tagDB      = require(__dirname + "/models/tags.js");
+//CREATE TAGS TO POPULATE DB
 // tagDB.create({
 //   name: "parties"
 // });
 //CREATE TAGS TO POPULATE DB
 
 //CREATE PICS TO POPULATE DB
-photoDB.create({
-  src: "https://scontent.xx.fbcdn.net/v/t1.0-9/18010976_10208519727822595_8487734034774834229_n.jpg?oh=a021b9a23f1b4151f33764b8229170ac&oe=59A2119B",
-  title: "railway",
-  description: "feefeefefefeffe",
-  tags: ["urbex", "party"]
-});
+// photoDB.create({
+//   src: "https://scontent.xx.fbcdn.net/v/t1.0-9/18010976_10208519727822595_8487734034774834229_n.jpg?oh=a021b9a23f1b4151f33764b8229170ac&oe=59A2119B",
+//   title: "railway",
+//   description: "feefeefefefeffe",
+//   tags: ["urbex", "party"]
+// });
 //CREATE PICS TO POPULATE DB
 //CREATE GPOTTE ENTRY TO POPULATE DB
 // var gpotteDB   = require(__dirname + "/models/user.js");
@@ -74,6 +74,73 @@ app.get('/portfolio', (req, res)=>{
 //need the authentification and ajax for the tag form
 app.get('/upload', (req, res)=>{
   res.render("upload/upload", {title: 'upload', gpotte: gpotte, categories: categories});
+});
+
+app.post('/upload/photo', (req, res)=>{
+  if (typeof req.body.tags !== 'object'){
+    var tag = req.body.tags;
+    photoDB.create({
+      src: req.body.src,
+      title: req.body.title,
+      description: req.body.description,
+      tags: tag
+    }, (err, photo)=>{
+      if (err){console.log(err)}
+      else {
+          tagDB.findOne({name: tag}, (err, result)=>{
+            if (err){console.log(err)}
+            else if (result){
+              result.pics.push(photo);
+              result.save();
+            }
+            else {
+              tagDB.create({name: tag}, (err, result)=>{
+                if (err){console.log(err)}
+                else {
+                  result.pics.push(photo);
+                  result.save();
+                }
+              });
+            }
+          });
+      }
+    });
+  }
+  else {
+    var tags = [];
+    for (i = 0; i < req.body.tags.length; i++)
+      tags.push(req.body.tags[i]);
+    photoDB.create({
+      src: req.body.src,
+      title: req.body.title,
+      description: req.body.description,
+      tags: tags
+    },
+    (err, photo)=> {
+      if (err){console.log(err)}
+    else {
+      tags.forEach((tag)=>{
+        tagDB.findOne({name: tag}, (err, result)=>{
+          if (err){console.log(err)}
+          else if (result){
+            result.pics.push(photo);
+            result.save();
+          }
+          else {
+            tagDB.create({name: tag}, (err, result)=>{
+              if (err){console.log(err)}
+              else {
+                result.pics.push(photo);
+                result.save();
+              }
+            });
+          }
+        });
+      });
+    }
+  });
+  }
+  res.redirect('/');
 });
 
 app.listen(port, ()=>{
