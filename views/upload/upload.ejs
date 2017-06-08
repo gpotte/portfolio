@@ -1,13 +1,14 @@
 <% include ../partials/header %>
+
   <div class="form">
     <h2>Upload new photo</h2>
     <form>
       <div class="form-group">
-        <input type="text" class="form-control" placeholder="Title">
-        <input type="text" class="form-control" placeholder="Source URL">
-        <input type="text" class="form-control" placeholder="Description (optionnal)">
-        <label for="tagList">Select list:</label>
-      </div>
+        <input type="text" class="form-control" placeholder="Title" required>
+        <input type="text" class="form-control" placeholder="Source URL" required>
+        <input type="text" id="margin-bottom" class="form-control" placeholder="Description (optionnal)">
+          <input type="text" placeholder="Tags" data-role="tagsinput" required>
     </form>
   </div>
+  <link rel=stylesheet type="text/css" href="css/upload.css">
 <% include ../partials/footer %>

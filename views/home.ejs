@@ -37,8 +37,8 @@
           <% if(image.description){%>
             <p><%=image.description%></p>
           <%} for(var i=0; i < image.tags.length; i++){%>
-            <p>#<%= image.tags[i] %> </p>
-            <%}%>
+            <a href="/categories/<%=image.tags[i]%>"<span>#<%= image.tags[i] %></span></a><span>  </span>
+          <%}%><br>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary">share</button>
         </div>
