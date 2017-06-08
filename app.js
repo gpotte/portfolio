@@ -55,7 +55,7 @@ app.get('/', (req, res) => {
 
 // render Each categories
 app.get('/home', (req, res) => {
-  photoDB.find({}, (err, images)=>{
+  photoDB.find({}, null, {sort: '-date'}, (err, images)=>{
     res.render("home", {title: 'Home', images: images, gpotte: gpotte, categories: categories});
   });
 });
@@ -140,6 +140,7 @@ app.post('/upload/photo', (req, res)=>{
     }
   });
   }
+  getVar.categories(function(res){categories = res});
   res.redirect('/');
 });
 
