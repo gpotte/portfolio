@@ -57,3 +57,7 @@ a.list-group-item:hover .logo{
   background-color: black;
   border-color: black;
 }
+
+.copyInput {
+  color: black;
+}

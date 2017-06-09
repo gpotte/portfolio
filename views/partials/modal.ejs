@@ -16,9 +16,10 @@
             <a href="/categories/<%=image.tags[i]%>"<span>#<%= image.tags[i] %></span></a><span>  </span>
           <%}%><br>
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">share</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#shareModal<%=image._id%>">share</button>
         </div>
       </div>
     </div>
   </div>
 <!-- MODAL OVERLAY-->
+<% include shareModal %>
