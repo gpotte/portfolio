@@ -16,12 +16,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.set("view engine", "ejs");
 
-//EXPRESS ROUTER
-var upload = require('./routes/upload');
-app.use("/upload", upload);
-//EXPRESS ROUTER
-
-
 var photoDB    = require(__dirname + "/models/photos.js");
 var tagDB      = require(__dirname + "/models/tags.js");
 
@@ -53,15 +47,23 @@ app.get('/home', (req, res) => {
 //render all 365 photos in pagination (15 by 15)
 app.get('/365', (req, res)=>{
     getVar.categories(function(res){categories = res});
-    res.render("365/365", {title: '365', gpotte: gpotte, categories: categories});
+    res.render("365/index", {title: '365', gpotte: gpotte, categories: categories});
 });
 
 //render the portfolio
 app.get('/portfolio', (req, res)=>{
     getVar.categories(function(res){categories = res});
-    res.render("portfolio/portfolio", {title: 'portfolio', gpotte: gpotte, categories: categories});
+    res.render("portfolio/index", {title: 'portfolio', gpotte: gpotte, categories: categories});
 });
 
+//EXPRESS ROUTER
+var uploadRoute     = require('./routes/upload'),
+    categoriesRoute = require('./routes/categories');
+//upload routes
+app.use("/upload", uploadRoute);
+//categories route + random photo + last photos
+app.use("/categories", categoriesRoute);
+//EXPRESS ROUTER
 
 app.listen(port, ()=>{
   console.log("server running on port %d", port);

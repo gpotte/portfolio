@@ -17,7 +17,7 @@ getVar.categories(function(res){categories = res});
 //render form to upload photos and form to create tags
 //need the authentification and ajax for the tag form
 router.get('/', (req, res)=>{
-  res.render("upload/upload", {title: 'upload', gpotte: gpotte, categories: categories});
+  res.render("upload/index", {title: 'upload', gpotte: gpotte, categories: categories});
 });
 
 router.post('/photo', (req, res)=>{
