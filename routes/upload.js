@@ -11,12 +11,12 @@ var tagDB      = require(__dirname + "/../models/tags.js");
 var gpotte;
 var categories;
 getVar.gpotte(function(res){gpotte = res});
-getVar.categories(function(res){categories = res});
 //GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
 
 //render form to upload photos and form to create tags
 //need the authentification and ajax for the tag form
 router.get('/', (req, res)=>{
+  getVar.categories(function(res){categories = res});
   res.render("upload/index", {title: 'upload', gpotte: gpotte, categories: categories});
 });
 

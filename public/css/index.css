@@ -52,3 +52,8 @@ a.list-group-item:hover .logo{
 .form-control {
   margin-top: 10px;
 }
+
+.btn-primary {
+  background-color: black;
+  border-color: black;
+}

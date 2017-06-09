@@ -12,30 +12,7 @@
         </div>
       </div>
   </div>
-  <!-- MODAL OVERLAY-->
-    <div class="modal fade" id="myModal<%=image.id%>" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel"><%=image.title%></h4>
-          </div>
-          <div class="modal-body">
-            <img class="img-rounded img img-responsive full-width" src=<%=image.src%>>
-          </div>
-          <div class="modal-footer">
-            <% if(image.description){%>
-              <p><%=image.description%></p>
-            <%} for(var i=0; i < image.tags.length; i++){%>
-              <a href="/categories/<%=image.tags[i]%>"<span>#<%= image.tags[i] %></span></a><span>  </span>
-            <%}%><br>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">share</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- MODAL OVERLAY-->
+  <%include ../partials/modal %>
 </div>
 <link rel="stylesheet" type="text/css" href="/css/home.css" />
 <% include ../partials/footer %>

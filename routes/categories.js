@@ -11,11 +11,11 @@ var tagDB      = require(__dirname + "/../models/tags.js");
 var gpotte;
 var categories;
 getVar.gpotte(function(res){gpotte = res});
-getVar.categories(function(res){categories = res});
 //GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
 
 //render one random pic
 router.get('/random', (req, res)=>{
+  getVar.categories(function(res){categories = res});
   // Get the count of all photos
   photoDB.count().exec((err, count)=>{
     // Get a random entry
@@ -31,6 +31,7 @@ router.get('/random', (req, res)=>{
 
 //Render pages with all pics from a categorie
 router.get('/:tag', (req, res)=>{
+  getVar.categories(function(res){categories = res});
   var tag = req.params.tag;
   tagDB.findOne({name: tag}).populate("pics").exec((err, result)=>{
     if (err){console.log(err)}
