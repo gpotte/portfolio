@@ -1,10 +1,12 @@
 <% include ../partials/header %>
-<div class="row">
-<% content.pics.forEach((image)=>{ %>
-  <% include ../partials/thumbnail %>
-
-  <%include ../partials/modal %>
-<% }); %>
-</div>
+<!-- FOR EACH IMAGES CREATE A SQUARE -->
+  <div class=row>
+  <% content.pics.forEach((image)=>{ %>
+    <% include ../partials/thumbnail %>
+    
+    <%include ../partials/modal %>
+  <% }); %>
+<!-- FOR EACH IMAGES CREATE A SQUARE -->
+  </div>
 <link rel="stylesheet" type="text/css" href="/css/home.css" />
 <% include ../partials/footer %>

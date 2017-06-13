@@ -22,8 +22,10 @@ router.get('/random', (req, res)=>{
     var random = Math.floor(Math.random() * count)
     photoDB.findOne().skip(random).exec((err, result)=>{
       if (err){console.log(err)}
-      else
+      else if (result)
         res.render("categorie/random", {title: "random photo", gpotte: gpotte, categories: categories, image: result});
+      else
+        res.redirect('/');
     });
   });
 });
@@ -36,7 +38,12 @@ router.get('/:tag', (req, res)=>{
   tagDB.findOne({name: tag}).populate("pics").exec((err, result)=>{
     if (err){console.log(err)}
     else if (result)
-      res.render("categorie/index", {title: tag, gpotte: gpotte, categories: categories, content: result});
+    {
+      console.log(result.pics);
+      var content = result.toObject();
+      content.pics.sort(function(m1, m2){ return m2.date - m1.date});
+      res.render("categorie/index", {title: tag, gpotte: gpotte, categories: categories, content: content});
+    }
     else
       res.redirect('/404');
   });

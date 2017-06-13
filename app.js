@@ -44,16 +44,10 @@ app.get('/home', (req, res) => {
   });
 });
 
-//render all 365 photos in pagination (15 by 15)
-app.get('/365', (req, res)=>{
+app.get('/404', (req, res)=>{
+    getVar.gpotte(function(res){gpotte = res});
     getVar.categories(function(res){categories = res});
-    res.render("365/index", {title: '365', gpotte: gpotte, categories: categories});
-});
-
-//render the portfolio
-app.get('/portfolio', (req, res)=>{
-    getVar.categories(function(res){categories = res});
-    res.render("portfolio/index", {title: 'portfolio', gpotte: gpotte, categories: categories});
+    res.render("404", {title: '404', gpotte: gpotte, categories: categories});
 });
 
 //EXPRESS ROUTER

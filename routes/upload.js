@@ -67,7 +67,7 @@ router.post('/photo', (req, res)=>{
         tagDB.findOne({name: tag}, (err, result)=>{
           if (err){console.log(err)}
           else if (result){
-            result.pics.push(photo);
+            result.pics.push(photo);      
             result.save();
           }
           else {
