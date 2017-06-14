@@ -9,6 +9,9 @@ body{
   color : white;
 }
 
+.thumbnail {
+  cursor: pointer;
+}
 .modal-content li{
   style: none;
 }

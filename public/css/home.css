@@ -1,7 +1,10 @@
 .caption {
   border-radius: 10px;
-  margin-top: -50px;
-  margin-bottom: 30px;
+  text-align: center;
+}
+
+.caption h4{
+    color: white;
 }
 
 .image{
@@ -9,6 +12,7 @@
     overflow:hidden;
     padding-bottom:100%;
 }
+
 .image img{
       position: absolute;
       max-width: 100%;

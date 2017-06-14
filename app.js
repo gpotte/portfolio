@@ -39,7 +39,7 @@ app.get('/', (req, res) => {
 app.get('/home', (req, res) => {
   getVar.gpotte(function(res){gpotte = res});
   getVar.categories(function(res){categories = res});
-  photoDB.find({}, null, {sort: '-date'}, (err, images)=>{
+  photoDB.find().sort('-date').limit(15).exec((err, images)=>{
     res.render("home", {title: 'Home', images: images, gpotte: gpotte, categories: categories});
   });
 });

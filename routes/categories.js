@@ -39,7 +39,6 @@ router.get('/:tag', (req, res)=>{
     if (err){console.log(err)}
     else if (result)
     {
-      console.log(result.pics);
       var content = result.toObject();
       content.pics.sort(function(m1, m2){ return m2.date - m1.date});
       res.render("categorie/index", {title: tag, gpotte: gpotte, categories: categories, content: content});
