@@ -37,10 +37,13 @@ app.get('/', (req, res) => {
 
 // render Each categories
 app.get('/home', (req, res) => {
+  var cookie = req.cookies;
+  if (cookie)
+    cookie = cookie.user;
   getVar.gpotte(function(res){gpotte = res});
   getVar.categories(function(res){categories = res});
   photoDB.find().sort('-date').limit(15).exec((err, images)=>{
-    res.render("home", {title: 'Home', images: images, gpotte: gpotte, categories: categories});
+    res.render("home", {title: 'Home', images: images, gpotte: gpotte, categories: categories, user: cookie});
   });
 });
 
@@ -52,11 +55,17 @@ app.get('/404', (req, res)=>{
 
 //EXPRESS ROUTER
 var uploadRoute     = require('./routes/upload'),
+    // deleteRoute     = require('./routes/delete'),
+    // editRoute     = require('./routes/edit'),
     categoriesRoute = require('./routes/categories');
 //upload routes
 app.use("/upload", uploadRoute);
 //categories route + random photo + last photos
 app.use("/categories", categoriesRoute);
+//delete routes
+// app.use("/delete", deleteRoute);
+//edit routes
+// app.use("/edit", editRoute);
 //EXPRESS ROUTER
 
 app.listen(port, ()=>{
