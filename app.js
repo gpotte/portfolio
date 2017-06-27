@@ -1,16 +1,18 @@
-var bodyParser  = require('body-parser'),
-    mongoose    = require("mongoose"),
-    express     = require('express'),
-    app         = express();
+var methodOverride = require('method-override'),
+    bodyParser     = require('body-parser'),
+    mongoose       = require("mongoose"),
+    express        = require('express'),
+    app            = express();
 
-var port        = process.env.PORT || 3030,
-    getVar      = require(__dirname + "/functions/getVar.js"),
+var port           = process.env.PORT || 3030,
+    getVar         = require(__dirname + "/functions/getVar.js"),
     categories,
     gpotte;
 
 getVar.gpotte(function(res){gpotte = res});
 
 mongoose.connect('mongodb://localhost/test');
+app.use(methodOverride('_method'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
@@ -50,6 +52,7 @@ app.get('/home', (req, res) => {
 app.get('/404', (req, res)=>{
     getVar.gpotte(function(res){gpotte = res});
     getVar.categories(function(res){categories = res});
+    res.status(404);
     res.render("404", {title: '404', gpotte: gpotte, categories: categories});
 });
 
@@ -58,14 +61,10 @@ var uploadRoute     = require('./routes/upload'),
     // deleteRoute     = require('./routes/delete'),
     // editRoute     = require('./routes/edit'),
     categoriesRoute = require('./routes/categories');
-//upload routes
+//upload routes + delete (delete request) + edit;
 app.use("/upload", uploadRoute);
 //categories route + random photo + last photos
 app.use("/categories", categoriesRoute);
-//delete routes
-// app.use("/delete", deleteRoute);
-//edit routes
-// app.use("/edit", editRoute);
 //EXPRESS ROUTER
 
 app.listen(port, ()=>{

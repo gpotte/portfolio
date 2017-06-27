@@ -1,0 +1,20 @@
+<!-- MODAL OVERLAY-->
+  <div class="modal fade" id="editModal<%=image._id%>" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form method="POST" action="/upload/<%=image._id%>?_method=PATCH">
+          <label>Title</label>
+          <input type=text value="<%=image.title%>" name="newTitle" class="copyInput form-control"><br>
+          <label>Description</label>
+          <input type=text value="<%=image.description%>" name="newDescription" class="copyInput form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary"></button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- MODAL OVERLAY-->

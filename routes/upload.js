@@ -20,7 +20,7 @@ router.get('/', (req, res)=>{
   res.render("upload/index", {title: 'upload', gpotte: gpotte, categories: categories});
 });
 
-router.post('/photo', (req, res)=>{
+router.post('/', (req, res)=>{
   if (typeof req.body.tags !== 'object'){
     var tag = req.body.tags;
     photoDB.create({
@@ -67,7 +67,7 @@ router.post('/photo', (req, res)=>{
         tagDB.findOne({name: tag}, (err, result)=>{
           if (err){console.log(err)}
           else if (result){
-            result.pics.push(photo);      
+            result.pics.push(photo);
             result.save();
           }
           else {
@@ -85,6 +85,18 @@ router.post('/photo', (req, res)=>{
   });
   }
   res.redirect('/');
+});
+
+router.delete('/:id', (req, res)=> {
+  photoDB.findByIdAndRemove(req.params.id, (err)=>{
+    if (err){console.log(err)}
+    else{console.log("deleted")};
+  });
+  res.redirect('back');
+});
+
+router.get('*', (req, res)=>{
+  res.redirect('/404');
 });
 
 module.exports = router;

@@ -49,5 +49,8 @@ router.get('/:tag', (req, res)=>{
 });
 //Render pages with all pics from a categorie
 
+router.get('*', (req, res)=>{
+  res.redirect('/404');
+});
 
 module.exports = router;

@@ -18,16 +18,17 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#shareModal<%=image._id%>">share</button>
         <%#if (user && user.name === 'gpotte') {%>
-          <a type="button" class="btn btn-warning" href="/edit/<%=image._id%>">edit</a>
+          <a type="button" class="btn btn-warning" data-toggle="modal" data-target="#editModal<%=image._id%>">edit</a>
           <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal<%=image._id%>">delete</a>
         <%#}%>
         </div>
       </div>
     </div>
   </div>
-  
+
 <!-- MODAL OVERLAY-->
 <% include shareModal %>
 <%#if (user && user.name === 'gpotte') {%>
   <% include destroyModal %>
+  <% include editModal %>
 <%#}%>
