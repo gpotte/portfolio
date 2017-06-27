@@ -19,6 +19,6 @@ module.exports = {
                     console.log(err);
                   else
                     callback(res);
-                  });
+                });
             }
 }

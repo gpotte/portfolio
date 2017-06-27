@@ -37,7 +37,7 @@ router.get('/:tag', (req, res)=>{
   var tag = req.params.tag;
   tagDB.findOne({name: tag}).populate("pics").exec((err, result)=>{
     if (err){console.log(err)}
-    else if (result)
+    else if (result && (result.pics.length > 0))
     {
       var content = result.toObject();
       content.pics.sort(function(m1, m2){ return m2.date - m1.date});

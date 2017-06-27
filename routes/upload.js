@@ -88,9 +88,23 @@ router.post('/', (req, res)=>{
 });
 
 router.delete('/:id', (req, res)=> {
-  photoDB.findByIdAndRemove(req.params.id, (err)=>{
+  photoDB.findById(req.params.id, (err, result)=>{
     if (err){console.log(err)}
-    else{console.log("deleted")};
+    else {
+      result.tags.forEach((tag)=>{
+        tagDB.findOne({name: tag}).populate("pics").exec((err, result)=>{
+          console.log(result.pics.length);
+          if (result.pics.length == 0)
+          {
+            tagDB.findOneAndRemove({name: tag}, (err)=>{if (err){console.log(err)}});
+          }
+        });
+      });
+    }
+  });
+  photoDB.findByIdAndRemove(req.params.id, (err)=>{
+   if (err){console.log(err)}
+   else{console.log("deleted")};
   });
   res.redirect('back');
 });
