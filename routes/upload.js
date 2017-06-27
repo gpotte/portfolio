@@ -95,6 +95,14 @@ router.delete('/:id', (req, res)=> {
   res.redirect('back');
 });
 
+router.patch('/:id', (req, res)=>{
+  photoDB.findByIdAndUpdate(req.params.id, {title: req.body.newTitle, description: req.body.newDescription}, (err)=>{
+    if (err){console.log(err)}
+    else {console.log("updated")}
+  });
+  res.redirect('back');
+});
+
 router.get('*', (req, res)=>{
   res.redirect('/404');
 });
