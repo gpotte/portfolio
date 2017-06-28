@@ -20,5 +20,11 @@ module.exports = {
                   else
                     callback(res);
                 });
-            }
+            },
+  user: function user(req, callback){
+    var cookie = req.cookies;
+    if (cookie)
+      cookie = cookie.user;
+    callback(cookie);
+  }
 }

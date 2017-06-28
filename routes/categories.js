@@ -10,11 +10,12 @@ var tagDB      = require(__dirname + "/../models/tags.js");
 //GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
 var gpotte;
 var categories;
-getVar.gpotte(function(res){gpotte = res});
 //GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
 
 //render one random pic
 router.get('/random', (req, res)=>{
+  getVar.gpotte(function(res){gpotte = res});
+  getVar.user(req, function(res){cookie = res});
   getVar.categories(function(res){categories = res});
   // Get the count of all photos
   photoDB.count().exec((err, count)=>{
@@ -23,7 +24,7 @@ router.get('/random', (req, res)=>{
     photoDB.findOne().skip(random).exec((err, result)=>{
       if (err){console.log(err)}
       else if (result)
-        res.render("categorie/random", {title: "random photo", gpotte: gpotte, categories: categories, image: result});
+        res.render("categorie/random", {title: "random photo", gpotte: gpotte, categories: categories, image: result, user: cookie});
       else
         res.redirect('/');
     });
@@ -34,6 +35,8 @@ router.get('/random', (req, res)=>{
 //Render pages with all pics from a categorie
 router.get('/:tag', (req, res)=>{
   getVar.categories(function(res){categories = res});
+  getVar.gpotte(function(res){gpotte = res});
+  getVar.user(req, function(res){cookie = res});
   var tag = req.params.tag;
   tagDB.findOne({name: tag}).populate("pics").exec((err, result)=>{
     if (err){console.log(err)}
@@ -41,7 +44,7 @@ router.get('/:tag', (req, res)=>{
     {
       var content = result.toObject();
       content.pics.sort(function(m1, m2){ return m2.date - m1.date});
-      res.render("categorie/index", {title: tag, gpotte: gpotte, categories: categories, content: content});
+      res.render("categorie/index", {title: tag, gpotte: gpotte, categories: categories, content: content, user: cookie});
     }
     else
       res.redirect('/404');

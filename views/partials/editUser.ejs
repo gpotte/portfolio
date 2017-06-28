@@ -1,0 +1,22 @@
+<!-- MODAL OVERLAY-->
+  <div class="modal fade" id="editUser" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <form method="POST" action="/user?_method=PATCH">
+          <label>Bio</label>
+          <input type=text value="<%=gpotte.bio%>" name="newBio" class="copyInput form-control"><br>
+          <label>Instagram</label>
+          <input type=text value="<%=gpotte.instagram%>" name="instagram" class="copyInput form-control"><br>
+          <label>Mail</label>
+          <input type=text value="<%=gpotte.mail%>" name="newMail" class="copyInput form-control">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary"></button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- MODAL OVERLAY-->

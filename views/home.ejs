@@ -4,6 +4,9 @@
     <p><%= gpotte.bio %></p>
     <p>
       <a class="btn btn-primary btn-lg" role="button" data-toggle="modal" data-target="#contact">Contact Me</a>
+      <% if (user && user.name === 'gpotte') {%>
+        <a type="button" class="btn btn-lg btn-warning" data-toggle="modal" data-target="#editUser">edit</a>
+      <% }%>
     </p>
   </div>
   <!-- FOR EACH IMAGES CREATE A SQUARE -->
@@ -17,3 +20,6 @@
   </div>
 <link rel="stylesheet" type="text/css" href="css/home.css" />
 <% include partials/footer %>
+<% if (user && user.name === 'gpotte') {%>
+<% include partials/editUser %>
+<% }%>
