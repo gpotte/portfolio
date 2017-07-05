@@ -1,6 +1,7 @@
-var express = require('express'),
-    router  = express.Router(),
+var express     = require('express'),
+    router      = express.Router(),
     getVar      = require(__dirname + "/../functions/getVar.js"),
+    loggedIn    = require(__dirname + "/../functions/loggedIn.js")
     mongoose    = require("mongoose");
 
 mongoose.connect('mongodb://localhost/test');
@@ -15,12 +16,12 @@ getVar.gpotte(function(res){gpotte = res});
 
 //render form to upload photos and form to create tags
 //need the authentification and ajax for the tag form
-router.get('/', (req, res)=>{
+router.get('/', loggedIn.loggedIn(), (req, res)=>{
   getVar.categories(function(res){categories = res});
   res.render("upload/index", {title: 'upload', gpotte: gpotte, categories: categories});
 });
 
-router.post('/', (req, res)=>{
+router.post('/', loggedIn.loggedIn(), (req, res)=>{
   if (typeof req.body.tags !== 'object'){
     var tag = req.body.tags;
     photoDB.create({
@@ -87,7 +88,7 @@ router.post('/', (req, res)=>{
   res.redirect('/');
 });
 
-router.delete('/:id', (req, res)=> {
+router.delete('/:id', loggedIn.loggedIn(), (req, res)=> {
   photoDB.findById(req.params.id, (err, result)=>{
     if (err){console.log(err)}
     else {
@@ -109,7 +110,7 @@ router.delete('/:id', (req, res)=> {
   res.redirect('back');
 });
 
-router.patch('/:id', (req, res)=>{
+router.patch('/:id', loggedIn.loggedIn(), (req, res)=>{
   photoDB.findByIdAndUpdate(req.params.id, {title: req.body.newTitle, description: req.body.newDescription}, (err)=>{
     if (err){console.log(err)}
     else {console.log("updated")}

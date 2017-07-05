@@ -45,7 +45,8 @@ app.get('/', (req, res) => {
         maxAge: 1000 * 60 * 15
     }
 
-  res.cookie('user', {name: 'gpotte'}, options)
+  // res.cookie('user', {name: 'gpotte'}, options)
+  res.clearCookie("user");
   res.redirect('/home');
 });
 
@@ -55,6 +56,7 @@ app.get('/home', (req, res) => {
   getVar.gpotte(function(res){gpotte = res});
   getVar.categories(function(res){categories = res});
   photoDB.find().sort('-date').limit(15).exec((err, images)=>{
+    console.log(cookie);
     res.render("home", {title: 'Home', images: images, gpotte: gpotte, categories: categories, user: cookie});
   });
 });
