@@ -41,12 +41,6 @@ var gpotteDB   = require(__dirname + "/models/user.js");
 //CREATE GPOTTE ENTRY TO POPULATE DB
 
 app.get('/', (req, res) => {
-  let options = {
-        maxAge: 1000 * 60 * 15
-    }
-
-  // res.cookie('user', {name: 'gpotte'}, options)
-  res.clearCookie("user");
   res.redirect('/home');
 });
 
@@ -68,9 +62,14 @@ app.get('/404', (req, res)=>{
     res.render("404", {title: '404', gpotte: gpotte, categories: categories});
 });
 
+app.get('/logout', (req, res)=>{
+  res.clearCookie("user");
+  res.redirect('/');
+});
+
 //EXPRESS ROUTER
 var uploadRoute     = require('./routes/upload'),
-    // loginRoute      = require('./routes/login'),
+    loginRoute      = require('./routes/login'),
     userRoute       = require('./routes/user'),
     categoriesRoute = require('./routes/categories');
 //upload routes + delete (delete request) + edit;
@@ -80,7 +79,7 @@ app.use("/categories", categoriesRoute);
 //user routes (for edit)
 app.use("/user", userRoute);
 //login routes
-//app.use("/login", loginRoute);
+app.use("/login", loginRoute);
 //EXPRESS ROUTER
 
 app.listen(port, ()=>{
