@@ -7,16 +7,8 @@ mongoose.connect('mongodb://localhost/test');
 var photoDB    = require(__dirname + "/../models/photos.js");
 var tagDB      = require(__dirname + "/../models/tags.js");
 
-//GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
-var gpotte;
-var categories;
-//GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
-
 //render one random pic
-router.get('/random', (req, res)=>{
-  getVar.gpotte(function(res){gpotte = res});
-  getVar.user(req, function(res){cookie = res});
-  getVar.categories(function(res){categories = res});
+router.get('/random', getVars(), (req, res)=>{
   // Get the count of all photos
   photoDB.count().exec((err, count)=>{
     // Get a random entry
@@ -33,10 +25,7 @@ router.get('/random', (req, res)=>{
 //render one random pic
 
 //Render pages with all pics from a categorie
-router.get('/:tag', (req, res)=>{
-  getVar.categories(function(res){categories = res});
-  getVar.gpotte(function(res){gpotte = res});
-  getVar.user(req, function(res){cookie = res});
+router.get('/:tag', getVars(), (req, res)=>{
   var tag = req.params.tag;
   tagDB.findOne({name: tag}).populate("pics").exec((err, result)=>{
     if (err){console.log(err)}
@@ -57,3 +46,12 @@ router.get('*', (req, res)=>{
 });
 
 module.exports = router;
+
+function getVars(){
+  return function(req, res, next){
+    getVar.user(req, function(res){cookie = res});
+    getVar.gpotte(function(res){gpotte = res});
+    getVar.categories(function(res){categories = res});
+    next();
+  }
+};

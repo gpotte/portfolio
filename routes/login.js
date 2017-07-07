@@ -9,13 +9,8 @@ var userDB    = require(__dirname + "/../models/user.js");
 var photoDB    = require(__dirname + "/../models/photos.js");
 var tagDB      = require(__dirname + "/../models/tags.js");
 
-var gpotte;
-var categories;
-getVar.gpotte(function(res){gpotte = res});
-getVar.categories(function(res){categories = res});
-
-router.get("/", (req, res)=>{
-  res.render("login/index", {title: "login", gpotte: gpotte, categories: categories, user: null});
+router.get("/", getVars(), (req, res)=>{
+  res.render("login/index", {title: "login", gpotte: gpotte, categories: categories, user: cookie});
 });
 
 router.post("/", (req, res)=>{
@@ -35,3 +30,12 @@ router.post("/", (req, res)=>{
 });
 
 module.exports = router;
+
+function getVars(){
+  return function(req, res, next){
+    getVar.user(req, function(res){cookie = res});
+    getVar.gpotte(function(res){gpotte = res});
+    getVar.categories(function(res){categories = res});
+    next();
+  }
+};

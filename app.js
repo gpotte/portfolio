@@ -8,11 +8,12 @@ var methodOverride = require('method-override'),
 
 var port           = process.env.PORT || 3030,
     getVar         = require(__dirname + "/functions/getVar.js"),
+    middleware     = require(__dirname + "/functions/middleware.js"),
     categories,
     cookie,
     gpotte;
 
-getVar.gpotte(function(res){gpotte = res});
+//getVar.gpotte(function(res){gpotte = res});
 
 mongoose.connect('mongodb://localhost/test');
 app.use(methodOverride('_method'))
@@ -45,21 +46,16 @@ app.get('/', (req, res) => {
 });
 
 // render Each categories
-app.get('/home', (req, res) => {
-  getVar.user(req, function(res){cookie = res});
-  getVar.gpotte(function(res){gpotte = res});
-  getVar.categories(function(res){categories = res});
+app.get('/home', getVars(), (req, res) => {
   photoDB.find().sort('-date').limit(15).exec((err, images)=>{
     console.log(cookie);
     res.render("home", {title: 'Home', images: images, gpotte: gpotte, categories: categories, user: cookie});
   });
 });
 
-app.get('/404', (req, res)=>{
-    getVar.gpotte(function(res){gpotte = res});
-    getVar.categories(function(res){categories = res});
+app.get('/404', getVars(), (req, res)=>{
     res.status(404);
-    res.render("404", {title: '404', gpotte: gpotte, categories: categories});
+    res.render("404", {title: '404', gpotte: gpotte, categories: categories, user: cookie});
 });
 
 app.get('/logout', (req, res)=>{
@@ -85,3 +81,12 @@ app.use("/login", loginRoute);
 app.listen(port, ()=>{
   console.log("server running on port %d", port);
 });
+
+function getVars(){
+  return function(req, res, next){
+    getVar.user(req, function(res){cookie = res});
+    getVar.gpotte(function(res){gpotte = res});
+    getVar.categories(function(res){categories = res});
+    next();
+  }
+};

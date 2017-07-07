@@ -9,6 +9,6 @@ exports.loggedIn = function(){
     }
    else
      res.redirect("/login");
- });
+   });
   }
 }

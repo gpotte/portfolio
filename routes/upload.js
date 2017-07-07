@@ -1,27 +1,19 @@
 var express     = require('express'),
     router      = express.Router(),
     getVar      = require(__dirname + "/../functions/getVar.js"),
-    loggedIn    = require(__dirname + "/../functions/loggedIn.js")
+    middleware  = require(__dirname + "/../functions/middleware.js")
     mongoose    = require("mongoose");
 
 mongoose.connect('mongodb://localhost/test');
 var photoDB    = require(__dirname + "/../models/photos.js");
 var tagDB      = require(__dirname + "/../models/tags.js");
 
-//GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
-var gpotte;
-var categories;
-getVar.gpotte(function(res){gpotte = res});
-//GET GPOTTE VARIABLE (CONTAINING A LOT OF INFO)
-
 //render form to upload photos and form to create tags
-//need the authentification and ajax for the tag form
-router.get('/', loggedIn.loggedIn(), (req, res)=>{
-  getVar.categories(function(res){categories = res});
-  res.render("upload/index", {title: 'upload', gpotte: gpotte, categories: categories});
+router.get('/', getVars(), middleware.loggedIn(), (req, res)=>{
+  res.render("upload/index", {title: 'upload', gpotte: gpotte, categories: categories, user: cookie});
 });
 
-router.post('/', loggedIn.loggedIn(), (req, res)=>{
+router.post('/', middleware.loggedIn(), (req, res)=>{
   if (typeof req.body.tags !== 'object'){
     var tag = req.body.tags;
     photoDB.create({
@@ -88,7 +80,7 @@ router.post('/', loggedIn.loggedIn(), (req, res)=>{
   res.redirect('/');
 });
 
-router.delete('/:id', loggedIn.loggedIn(), (req, res)=> {
+router.delete('/:id', middleware.loggedIn(), (req, res)=> {
   photoDB.findById(req.params.id, (err, result)=>{
     if (err){console.log(err)}
     else {
@@ -110,7 +102,7 @@ router.delete('/:id', loggedIn.loggedIn(), (req, res)=> {
   res.redirect('back');
 });
 
-router.patch('/:id', loggedIn.loggedIn(), (req, res)=>{
+router.patch('/:id', middleware.loggedIn(), (req, res)=>{
   photoDB.findByIdAndUpdate(req.params.id, {title: req.body.newTitle, description: req.body.newDescription}, (err)=>{
     if (err){console.log(err)}
     else {console.log("updated")}
@@ -123,3 +115,12 @@ router.get('*', (req, res)=>{
 });
 
 module.exports = router;
+
+function getVars(){
+  return function(req, res, next){
+    getVar.user(req, function(res){cookie = res});
+    getVar.gpotte(function(res){gpotte = res});
+    getVar.categories(function(res){categories = res});
+    next();
+  }
+};
