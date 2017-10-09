@@ -29,16 +29,15 @@ var gpotteDB   = require(__dirname + "/models/user.js");
 
 //CREATE GPOTTE ENTRY TO POPULATE DB
 // gpotteDB.create({
-//   bio: "emplacement de la bio",
-//   instagram: "https://www.instagram.com/cobblestuv/",
-//   mail: "gilles.gpotte@gmail.com",
-//  name: "gpotte",
-//  password: crypto.createHash('md5').update("portfoliopassword").digest("hex")
+//   bio: "YOURBIO",
+//   instagram: "https://YOURINSTAGRAMURL",
+//   mail: "YOURMAIL",
+//  name: "YOURLOGIN",
+//  password: crypto.createHash('md5').update("YOURPASSWORD").digest("hex")
 // });
 // gpotteDB.findOne({}, (err, res)=>{
 //   console.log(res);
 // });
-// console.log(crypto.createHash('md5').update("portfoliopassword").digest("hex"));
 //CREATE GPOTTE ENTRY TO POPULATE DB
 
 app.get('/', (req, res) => {
